@@ -34,63 +34,6 @@
 </head>
 <body>
     <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript">
-        var onNotificationAPN = function (event) {
-            if (event.alert) {
-                navigator.notification.alert(event.alert);
-            }
-
-            if (event.sound) {
-                var snd = new Media(event.sound);
-                snd.play();
-            }
-
-            if (event.badge) {
-                pushNotification.setApplicationIconBadgeNumber(successHandler, errorHandler, event.badge);
-            }
-        };
-
-        var onNotificationGCM = function (e) {
-
-            switch (e.event) {
-                case 'registered':
-                    if (e.regid.length > 0) {
-                        var token = e.regid;
-
-                        api.GetMobileDeviceIDByToken(token).done(function (ID) {
-
-                            api.GetMobileDeviceByID(ID).done(function (geDevice) {
-
-                                var person = api.GetCurrentPerson();
-                                alert(person.ID);
-                                geDevice.PersonID = person.ID;
-                                geDevice.DeviceToken = token;
-
-                                geDevice.Platform = "android";
-
-                                api.SaveMobileDevice(geDevice);
-
-                            });
-
-                        });
-                    }
-                    break;
-
-                case 'message':
-                    // this is the actual push notification. its format depends on the data model from the push server
-                    alert('message = ' + e.message + ' msgcnt = ' + e.msgcnt);
-                    break;
-
-                case 'error':
-                    alert('GCM error = ' + e.msg);
-                    break;
-
-                default:
-                    alert('An unknown GCM event has occurred');
-                    break;
-            }
-        };
-    </script>
     <div id="swappableContentOuter">
     <div class="app">
        <div class="logo">
