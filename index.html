@@ -60,7 +60,10 @@
                         api.GetMobileDeviceIDByToken(token).done(function (ID) {
 
                             api.GetMobileDeviceByID(ID).done(function (geDevice) {
-                                geDevice.PersonID = vm.person.ID;
+
+                                var person = api.GetCurrentPerson();
+                                alert(person.ID);
+                                geDevice.PersonID = person.ID;
                                 geDevice.DeviceToken = token;
 
                                 geDevice.Platform = "android";
